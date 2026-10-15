@@ -17,6 +17,7 @@ public abstract class  Sala {
         this.capacidadMaxima = capacidadMaxima;
 
         this.listSalaAsientos = new ArrayList<>();
+        this.listSalaFunciones = new ArrayList<>();
     }
 
     public abstract double calcularPrecioBoleta(double precioBase);
@@ -47,6 +48,7 @@ public abstract class  Sala {
         }
         return true;
     }
+
     public String getCodigo() {
         return codigo;
     }
@@ -68,7 +70,7 @@ public abstract class  Sala {
     }
 
     public void setCapacidadMaxima(int capacidadMaxima) {
-        capacidadMaxima = capacidadMaxima;
+        this.capacidadMaxima = capacidadMaxima;
     }
 
     public List<Funcion> getListSalaFunciones() {
@@ -86,13 +88,7 @@ public abstract class  Sala {
     public void setListSalaAsientos(List<Asiento> listSalaAsientos) {
         this.listSalaAsientos = listSalaAsientos;
     }
-    public List<Asiento> getListSalaAsientos() {
-        return listSalaAsientos;
-    }
 
-    public void setListSalaAsientos(List<Asiento> listSalaAsientos) {
-        this.listSalaAsientos = listSalaAsientos;
-    }
     @Override
     public String toString() {
         return "Sala{" +

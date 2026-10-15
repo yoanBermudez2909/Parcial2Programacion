@@ -28,6 +28,16 @@ public class Funcion {
 
     }
 
+
+    public boolean seCruzaCon(Funcion otra) {
+        if (!fehca.equals(otra.getFehca())) {
+            return false;
+        }
+        return horaInicio.isBefore(otra.calcularHoraFinal())
+                && calcularHoraFinal().isAfter(otra.getHoraInicio());
+    }
+
+
     public boolean asientoDisponible(int fila, int numero) {
 
         for(Venta venta : listFuncionVentas){

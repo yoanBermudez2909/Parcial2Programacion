@@ -10,18 +10,22 @@ public class Funcion {
     private LocalDate fehca;
     private LocalTime horaInicio;
     private double precioBase;
+    private Sala sala;
+    private Pelicula pelicula;
 
-    private List<Sala>listFuncionSala;
-    private List<Pelicula>listFuncionPelicula;
+    private List<Venta> listFuncionVenta;
 
-    public Funcion(String codigo, LocalDate fehca, LocalTime horaInicio, double precioBase, List<Sala> listFuncionSala, List<Pelicula> listFuncionPelicula) {
+
+    public Funcion(String codigo, LocalDate fehca, LocalTime horaInicio, double precioBase, Sala sala, Pelicula pelicula) {
         this.codigo = codigo;
         this.fehca = fehca;
         this.horaInicio = horaInicio;
         this.precioBase = precioBase;
+        this.sala = sala;
+        this.pelicula = pelicula;
 
-        this.listFuncionSala = new ArrayList<>();
-        this.listFuncionPelicula = new ArrayList<>();
+        this.listFuncionVenta = new ArrayList<>();
+
     }
 
     public String getCodigo() {
@@ -56,22 +60,6 @@ public class Funcion {
         this.precioBase = precioBase;
     }
 
-    public List<Sala> getListFuncionSala() {
-        return listFuncionSala;
-    }
-
-    public void setListFuncionSala(List<Sala> listFuncionSala) {
-        this.listFuncionSala = listFuncionSala;
-    }
-
-    public List<Pelicula> getListFuncionPelicula() {
-        return listFuncionPelicula;
-    }
-
-    public void setListFuncionPelicula(List<Pelicula> listFuncionPelicula) {
-        this.listFuncionPelicula = listFuncionPelicula;
-    }
-
     @Override
     public String toString() {
         return "Funcion{" +
@@ -79,8 +67,12 @@ public class Funcion {
                 ", fehca=" + fehca +
                 ", horaInicio=" + horaInicio +
                 ", precioBase=" + precioBase +
-                ", listFuncionSala=" + listFuncionSala +
-                ", listFuncionPelicula=" + listFuncionPelicula +
+                ", sala=" + sala +
+                ", pelicula=" + pelicula +
+                ", listFuncionVenta=" + listFuncionVenta +
                 '}';
     }
 }
+
+
+

@@ -1,11 +1,15 @@
 package model;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Operario extends Persona {
     private String codigoEmpleado;
     private String fechaContratacion;
     private double salarioBasico;
+
+    private List<Venta> listOperarioVenta;
 
     public Operario(String documento, String nombre, String correo, String telefono, String codigoEmpleado, String fechaContratacion, double salarioBasico) {
         super(documento, nombre, correo, telefono);
@@ -13,6 +17,8 @@ public class Operario extends Persona {
         this.codigoEmpleado = codigoEmpleado;
         this.fechaContratacion = fechaContratacion;
         this.salarioBasico = salarioBasico;
+
+        this.listOperarioVenta = new ArrayList<>();
     }
 
     public String getCodigoEmpleado() {
@@ -37,6 +43,14 @@ public class Operario extends Persona {
 
     public void setSalarioBasico(double salarioBasico) {
         this.salarioBasico = salarioBasico;
+    }
+
+    public List<Venta> getListOperarioVenta() {
+        return listOperarioVenta;
+    }
+
+    public void setListOperarioVenta(List<Venta> listOperarioVenta) {
+        this.listOperarioVenta = listOperarioVenta;
     }
 
     @Override

@@ -1,11 +1,14 @@
 package model;
 
+import java.util.List;
+
 public class Pelicula {
     private String codigo;
     private String titulo;
     private int duracionMinutos;
     private String clasifiEdad;
 
+    private List<Funcion> listPeliculaFunciones;
     private GeneroPelicula generoPelicula;
 
     public Pelicula(String codigo, String titulo, int duracionMinutos, String clasifiEdad, GeneroPelicula generoPelicula) {

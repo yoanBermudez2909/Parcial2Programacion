@@ -8,6 +8,7 @@ public abstract class  Sala {
     private  String codigo;
     private  String nombre;
     private  int CapacidadMaxima;
+    private List<Funcion> listSalaFunciones;
     private List<Asiento> listSalaAsientos;
 
     public Sala(String codigo, String nombre, int capacidadMaxima) {

@@ -48,7 +48,6 @@ public abstract class  Sala {
         }
         return true;
     }
-
     public String getCodigo() {
         return codigo;
     }
@@ -70,7 +69,7 @@ public abstract class  Sala {
     }
 
     public void setCapacidadMaxima(int capacidadMaxima) {
-        this.capacidadMaxima = capacidadMaxima;
+        capacidadMaxima = capacidadMaxima;
     }
 
     public List<Funcion> getListSalaFunciones() {
@@ -88,7 +87,13 @@ public abstract class  Sala {
     public void setListSalaAsientos(List<Asiento> listSalaAsientos) {
         this.listSalaAsientos = listSalaAsientos;
     }
+    public List<Asiento> getListSalaAsientos() {
+        return listSalaAsientos;
+    }
 
+    public void setListSalaAsientos(List<Asiento> listSalaAsientos) {
+        this.listSalaAsientos = listSalaAsientos;
+    }
     @Override
     public String toString() {
         return "Sala{" +

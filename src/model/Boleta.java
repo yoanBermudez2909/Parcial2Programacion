@@ -19,7 +19,7 @@ public class Boleta {
 
         this.listBoletaVenta = new ArrayList<>();
     }
-
+    // Getters y setters de cada atributo
     public String getCodigo() {
         return codigo;
     }

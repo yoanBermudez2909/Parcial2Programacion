@@ -15,6 +15,8 @@ public class Cliente extends Persona {
         this.porcentajeDescuento = porcentajeDescuento;
         this.listClienteVentas = new ArrayList<>();
     }
+    // Aplica el descuento del cliente sobre un valor que ya trae el
+    // recargo de la sala incluido
     public double aplicarDescuento(double valor) {
         return valor * (1 - porcentajeDescuento / 100);
     }

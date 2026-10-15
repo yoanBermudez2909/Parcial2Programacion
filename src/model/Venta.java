@@ -17,34 +17,29 @@ public class Venta {
         this.operario = operario;
         this.cliente = cliente;
         this.funcion = funcion;
-        this.theCliente = theCliente;
-        this.theOperario = theOperario;
+        this.cliente = cliente;
+        this.operario = operario;
         this.listVentaBoletas = new ArrayList<>();
     }
 
     public boolean agregarBoleta(int fila, int numero) {
-        Sala sala = theFuncion.getSala();
+        Sala sala = funcion.getSala();
 
         if (sala.buscarAsiento(fila, numero) == null) {
             return false;
         }
-        if (!theFuncion.asientoDisponible(fila, numero)) {
+        if (!funcion.asientoDisponible(fila, numero)) {
             return false;
         }
 
-        double conRecargo = sala.calcularPrecioBoleta(theFuncion.getPrecioBase());
-        double valorFinal = theCliente.aplicarDescuento(conRecargo);
+        double conRecargo = sala.calcularPrecioBoleta(funcion.getPrecioBase());
+        double valorFinal = cliente.aplicarDescuento(conRecargo);
 
         String codigoBoleta = codigo + "-" + (listVentaBoletas.size() + 1);
-        Boleta boleta = new Boleta(codigoBoleta, fila, numero, valorFinal);
-
-        boleta.setTheVenta(this);
-        listVentaBoletas.add(boleta);
-        theFuncion.registrarBoleta(boleta);
+        listVentaBoletas.add(new Boleta(codigoBoleta, fila, numero, valorFinal));
         return true;
     }
 
-    /** Valor total = suma del valor individual de todas las boletas. */
     public double calcularTotal() {
         double total = 0;
         for (Boleta b : listVentaBoletas) {
@@ -92,19 +87,19 @@ public class Venta {
         this.funcion = funcion;
     }
     public Cliente getTheCliente() {
-        return theCliente;
+        return cliente;
     }
 
     public void setTheCliente(Cliente theCliente) {
-        this.theCliente = theCliente;
+        this.cliente = theCliente;
     }
 
     public Operario getTheOperario() {
-        return theOperario;
+        return operario;
     }
 
     public void setTheOperario(Operario theOperario) {
-        this.theOperario = theOperario;
+        this.operario = theOperario;
     }
 
     public List<Boleta> getListVentaBoletas() {

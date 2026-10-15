@@ -8,6 +8,6 @@ public class Sala3D extends Sala{
 
     @Override
     public double calcularPrecioBoleta(double precioBase) {
-        return 0;
+        return precioBase * 1.20;
     }
 }

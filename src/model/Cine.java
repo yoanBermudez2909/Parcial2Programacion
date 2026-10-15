@@ -184,13 +184,13 @@ public class Cine {
             return false;
         }
 
-        // Verificar ocupacion antes de registrar la venta
+
         for (int i = 0; i < asientos.length; i++) {
             if (!funcion.asientoDisponible(asientos[i][0], asientos[i][1])) {
                 return false;
             }
 
-            // Verificar que no existan asientos repetidos en la misma venta
+
             for (int j = i + 1; j < asientos.length; j++) {
                 if (asientos[i][0] == asientos[j][0] && asientos[i][1] == asientos[j][1]) {
                     return false;
@@ -238,6 +238,15 @@ public class Cine {
         }
 
         return funcion.calcularPorcentajeOcupacion();
+    }
+
+    public Funcion buscarFuncion(String codigoFuncion){
+        for (Funcion funcion : listCineFunciones){
+            if(funcion.getCodigo().equals(codigoFuncion)){
+                return funcion;
+            }
+        }
+        return null;
     }
 
     public String getNombreComercial() {

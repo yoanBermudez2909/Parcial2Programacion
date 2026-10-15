@@ -1,4 +1,6 @@
+ HEAD
 HEAD
+bfeebd850f39d67ffc212a132f8ade3efc5ac5b0
 # Compiled class file
 *.class
 
@@ -23,6 +25,7 @@ HEAD
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+ HEAD
 
 .idea/
 *.iml
@@ -58,3 +61,4 @@ bin/
 ### Mac OS ###
 .DS_Store
 origin/Rama-Andres
+bfeebd850f39d67ffc212a132f8ade3efc5ac5b0

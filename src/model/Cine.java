@@ -110,6 +110,19 @@ public class Cine {
         }
     }
 
+    public Sala buscarSala(String codigo) {
+        for (Sala sala : listCineSalas) {
+            if (sala.getCodigo().equals(codigo)) return sala;
+        }
+        return null;
+    }
+
+    public void agregarSala(Sala sala) {
+        if (sala != null && buscarSala(sala.getCodigo()) == null) {
+            listCineSalas.add(sala);
+        }
+    }
+
     /**
      * Metodo que permite programar una funcion en una sala del cine
      * @param codigo codigo de identificacion de la funcion
@@ -120,12 +133,16 @@ public class Cine {
      * @param sala sala en la que se proyectara la pelicula
      */
     public void programarFuncion(String codigo, LocalDate fehca, LocalTime horaInicio, double precioBase, Pelicula pelicula, Sala sala) {
-        if (!detectarConflicto(sala, fehca, horaInicio, pelicula)) {
-            Funcion funcion = new Funcion(codigo, fehca, horaInicio, precioBase, sala, pelicula);
+        if (codigo == null || fehca == null || horaInicio == null || pelicula == null || sala == null) return;
+        if (buscarFuncion(codigo) != null || buscarSala(sala.getCodigo()) == null || buscarPelicula(pelicula.getCodigo()) == null) return;
+
+        if (!detectarConflicto(sala,fehca,horaInicio,pelicula)) {
+            Funcion funcion = new Funcion(codigo,fehca,horaInicio,precioBase,sala,pelicula);
             listCineFunciones.add(funcion);
+            sala.getListSalaFunciones().add(funcion);
+            pelicula.getListPeliculaFunciones().add(funcion);
         }
     }
-
     /**
      * Metodo que permite detectar conflictos de horario en una sala
      * @param sala sala en la que se desea programar la funcion
@@ -176,45 +193,32 @@ public class Cine {
      * @return true si la venta se realiza correctamente, false si existen datos invalidos o asientos ocupados
      */
     public boolean realizarVenta(String codigo, String fecha, Cliente cliente, Operario operario, Funcion funcion, int[][] asientos) {
-        if (cliente == null || operario == null || funcion == null || asientos.length == 0) {
-            return false;
-        }
-
-        if (buscarVenta(codigo) != null) {
-            return false;
-        }
-
+        if (cliente == null || operario == null || funcion == null || asientos == null || asientos.length == 0) return false;
+        if (buscarVenta(codigo) != null) return false;
 
         for (int i = 0; i < asientos.length; i++) {
-            if (!funcion.asientoDisponible(asientos[i][0], asientos[i][1])) {
-                return false;
-            }
-
+            if (asientos[i] == null || asientos[i].length < 2) return false;
+            if (!funcion.asientoDisponible(asientos[i][0],asientos[i][1])) return false;
 
             for (int j = i + 1; j < asientos.length; j++) {
-                if (asientos[i][0] == asientos[j][0] && asientos[i][1] == asientos[j][1]) {
-                    return false;
-                }
+                if (asientos[j] != null && asientos[j].length >= 2 && asientos[i][0] == asientos[j][0] && asientos[i][1] == asientos[j][1]) return false;
             }
         }
 
-        Venta venta = new Venta(codigo, fecha, operario, cliente, funcion);
+        Venta venta = new Venta(codigo,fecha,operario,cliente,funcion);
 
-        for (int[] a : asientos) {
-            venta.agregarBoleta(a[0], a[1]);
+        for (int[] asiento : asientos) {
+            venta.agregarBoleta(asiento[0],asiento[1]);
         }
 
         listCineVentas.add(venta);
         funcion.getListFuncionVentas().add(venta);
+        cliente.getListClienteVentas().add(venta);
+        operario.getListOperarioVenta().add(venta);
 
         return true;
     }
 
-    /**
-     * Metodo que permite calcular el total de una venta
-     * @param codigoVenta codigo de identificacion de la venta
-     * @return valor total de la venta o -1 si la venta no existe
-     */
     public double calcularTotalVenta(String codigoVenta) {
         Venta venta = buscarVenta(codigoVenta);
 

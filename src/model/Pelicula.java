@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pelicula {
@@ -24,7 +25,7 @@ public class Pelicula {
         this.titulo = titulo;
         this.duracionMinutos = duracionMinutos;
         this.clasifiEdad = clasifiEdad;
-
+        this.listPeliculaFunciones = new ArrayList<>();
         this.generoPelicula = generoPelicula;
     }
 
@@ -66,6 +67,14 @@ public class Pelicula {
 
     public void setGeneroPelicula(GeneroPelicula generoPelicula) {
         this.generoPelicula = generoPelicula;
+    }
+
+    public List<Funcion> getListPeliculaFunciones() {
+        return listPeliculaFunciones;
+    }
+
+    public void setListPeliculaFunciones(List<Funcion> listPeliculaFunciones) {
+        this.listPeliculaFunciones = listPeliculaFunciones;
     }
 
     @Override

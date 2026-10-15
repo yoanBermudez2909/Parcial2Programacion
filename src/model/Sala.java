@@ -87,19 +87,17 @@ public abstract class  Sala {
     public void setListSalaAsientos(List<Asiento> listSalaAsientos) {
         this.listSalaAsientos = listSalaAsientos;
     }
-    public List<Asiento> getListSalaAsientos() {
-        return listSalaAsientos;
-    }
 
-    public void setListSalaAsientos(List<Asiento> listSalaAsientos) {
-        this.listSalaAsientos = listSalaAsientos;
-    }
     @Override
     public String toString() {
         return "Sala{" +
                 "codigo='" + codigo + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", capacidadMaxima=" + capacidadMaxima +
+                ", listSalaFunciones=" + listSalaFunciones +
+                ", listSalaAsientos=" + listSalaAsientos +
                 '}';
     }
 }
+
+

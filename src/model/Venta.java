@@ -17,9 +17,41 @@ public class Venta {
         this.operario = operario;
         this.cliente = cliente;
         this.funcion = funcion;
+        this.theCliente = theCliente;
+        this.theOperario = theOperario;
         this.listVentaBoletas = new ArrayList<>();
     }
 
+    public boolean agregarBoleta(int fila, int numero) {
+        Sala sala = theFuncion.getSala();
+
+        if (sala.buscarAsiento(fila, numero) == null) {
+            return false;
+        }
+        if (!theFuncion.asientoDisponible(fila, numero)) {
+            return false;
+        }
+
+        double conRecargo = sala.calcularPrecioBoleta(theFuncion.getPrecioBase());
+        double valorFinal = theCliente.aplicarDescuento(conRecargo);
+
+        String codigoBoleta = codigo + "-" + (listVentaBoletas.size() + 1);
+        Boleta boleta = new Boleta(codigoBoleta, fila, numero, valorFinal);
+
+        boleta.setTheVenta(this);
+        listVentaBoletas.add(boleta);
+        theFuncion.registrarBoleta(boleta);
+        return true;
+    }
+
+    /** Valor total = suma del valor individual de todas las boletas. */
+    public double calcularTotal() {
+        double total = 0;
+        for (Boleta b : listVentaBoletas) {
+            total += b.getValor();
+        }
+        return total;
+    }
     public String getCodigo() {
         return codigo;
     }
@@ -52,12 +84,27 @@ public class Venta {
         this.cliente = cliente;
     }
 
-    public Funcion getFuncion() {
+    public Funcion getTheFuncion() {
         return funcion;
     }
 
-    public void setFuncion(Funcion funcion) {
+    public void setTheFuncion(Funcion funcion) {
         this.funcion = funcion;
+    }
+    public Cliente getTheCliente() {
+        return theCliente;
+    }
+
+    public void setTheCliente(Cliente theCliente) {
+        this.theCliente = theCliente;
+    }
+
+    public Operario getTheOperario() {
+        return theOperario;
+    }
+
+    public void setTheOperario(Operario theOperario) {
+        this.theOperario = theOperario;
     }
 
     public List<Boleta> getListVentaBoletas() {

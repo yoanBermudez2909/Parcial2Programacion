@@ -5,12 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class  Sala {
+    /**
+     * Método constructor de la clase Sala
+     * @param codigo de la sala
+     * @param nombre de la sala
+     * @param capacidadMaxima de la sala
+     */
     private  String codigo;
     private  String nombre;
     private  int CapacidadMaxima;
     private List<Funcion> listSalaFunciones;
     private List<Asiento> listSalaAsientos;
-
+    // Crea la sala con su capacidad; la lista de asientos arranca vacia
+    // y se llena despues con generarAsientos()
     public Sala(String codigo, String nombre, int capacidadMaxima) {
         this.codigo = codigo;
         this.nombre = nombre;
@@ -47,6 +54,7 @@ public abstract class  Sala {
         }
         return true;
     }
+    // Getters y setters: acceso y modificacion de cada atributo
     public String getCodigo() {
         return codigo;
     }

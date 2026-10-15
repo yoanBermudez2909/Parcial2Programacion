@@ -3,6 +3,14 @@ package model;
 import java.util.List;
 
 public class Pelicula {
+    /**
+     * Método constructor de la clase Pelicula
+     * @param codigo de la pelicula
+     * @param titulo de la pelicula
+     * @param duracionMinutos de la pelicula
+     * @param clasifiEdad de la pelicula
+     * @param generoPelicula de la pelicula
+     */
     private String codigo;
     private String titulo;
     private int duracionMinutos;

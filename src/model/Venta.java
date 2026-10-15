@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Venta {
+    /**
+     * Método constructor de la clase Venta
+     * @param codigo de la venta
+     * @param fecha de la venta
+     * @param theFuncion de la venta
+     * @param theCliente de la venta
+     * @param theOperario de la venta
+     */
     private String codigo;
     private String fecha;
     private Operario operario;
@@ -21,7 +29,9 @@ public class Venta {
         this.theOperario = theOperario;
         this.listVentaBoletas = new ArrayList<>();
     }
-
+    // Intenta agregar una boleta para el asiento (fila, numero).
+    // Devuelve false si el asiento no existe en la sala o si ya fue
+    // vendido para esta funcion
     public boolean agregarBoleta(int fila, int numero) {
         Sala sala = theFuncion.getSala();
 
@@ -43,8 +53,7 @@ public class Venta {
         theFuncion.registrarBoleta(boleta);
         return true;
     }
-
-    /** Valor total = suma del valor individual de todas las boletas. */
+    // Suma el valor de todas las boletas de esta venta: total a pagar
     public double calcularTotal() {
         double total = 0;
         for (Boleta b : listVentaBoletas) {
@@ -52,6 +61,7 @@ public class Venta {
         }
         return total;
     }
+    // Getters y setters de cada atributo
     public String getCodigo() {
         return codigo;
     }

@@ -1,6 +1,13 @@
 package model;
 
 public class Persona {
+    /**
+     * Método constructor de la clase Persona
+     * @param documento de la persona
+     * @param nombre de la persona
+     * @param correo de la persona
+     * @param telefono de la persona
+     */
     private String documento;
     private String nombre;
     private String correo;

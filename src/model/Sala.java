@@ -21,6 +21,32 @@ public abstract class  Sala {
 
     public abstract double calcularPrecioBoleta(double precioBase);
 
+    public void agregarAsiento(Asiento asiento) {
+        listSalaAsientos.add(asiento);
+    }
+    public void generarAsientos(int filas, int columnas) {
+        for (int f = 1; f <= filas; f++) {
+            for (int c = 1; c <= columnas; c++) {
+                agregarAsiento(new Asiento(f, c));
+            }
+        }
+    }
+    public Asiento buscarAsiento(int fila, int columna) {
+        for (Asiento a : listSalaAsientos) {
+            if (a.getFilas() == fila && a.getColumnas() == columna) {
+                return a;
+            }
+        }
+        return null;
+    }
+    public boolean estaDisponible(Funcion nueva, List<Funcion> funcionesProgramadas) {
+        for (Funcion f : funcionesProgramadas) {
+            if (f.getSala().getCodigo().equals(codigo) && f.seCruzaCon(nueva)) {
+                return false;
+            }
+        }
+        return true;
+    }
     public String getCodigo() {
         return codigo;
     }
@@ -44,7 +70,13 @@ public abstract class  Sala {
     public void setCapacidadMaxima(int capacidadMaxima) {
         CapacidadMaxima = capacidadMaxima;
     }
+    public List<Asiento> getListSalaAsientos() {
+        return listSalaAsientos;
+    }
 
+    public void setListSalaAsientos(List<Asiento> listSalaAsientos) {
+        this.listSalaAsientos = listSalaAsientos;
+    }
     @Override
     public String toString() {
         return "Sala{" +

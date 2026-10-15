@@ -15,6 +15,9 @@ public class Cliente extends Persona {
         this.porcentajeDescuento = porcentajeDescuento;
         this.listClienteVentas = new ArrayList<>();
     }
+    public double aplicarDescuento(double valor) {
+        return valor * (1 - porcentajeDescuento / 100);
+    }
 
     public String getCodigoAfilacion() {
         return codigoAfilacion;

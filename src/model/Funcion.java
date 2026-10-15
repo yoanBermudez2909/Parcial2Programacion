@@ -13,7 +13,7 @@ public class Funcion {
     private Sala sala;
     private Pelicula pelicula;
 
-    private List<Venta> listFuncionVenta;
+    private List<Venta> listFuncionVentas;
 
 
     public Funcion(String codigo, LocalDate fehca, LocalTime horaInicio, double precioBase, Sala sala, Pelicula pelicula) {
@@ -24,9 +24,43 @@ public class Funcion {
         this.sala = sala;
         this.pelicula = pelicula;
 
-        this.listFuncionVenta = new ArrayList<>();
+        this.listFuncionVentas = new ArrayList<>();
 
     }
+
+    public boolean asientoDisponible(int fila, int numero) {
+
+        for(Venta venta : listFuncionVentas){
+
+            for(Boleta boleta : venta.getListVentaBoletas()){
+
+                if(boleta.getFila() == fila && boleta.getNumeroAsientos() == numero){
+
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public LocalTime calcularHoraFinal() {
+        return horaInicio.plusMinutes(pelicula.getDuracionMinutos());
+    }
+
+    public double calcularPorcentajeOcupacion() {
+        int boletasVendidas = 0;
+        for (Venta venta : listFuncionVentas) {
+            boletasVendidas += venta.getListVentaBoletas().size();
+        }
+        int capacidad = sala.getCapacidadMaxima();
+        if (capacidad == 0) {
+            return 0;
+        }
+        return (boletasVendidas * 100.0) / capacidad;
+    }
+
+
 
     public String getCodigo() {
         return codigo;
@@ -60,6 +94,30 @@ public class Funcion {
         this.precioBase = precioBase;
     }
 
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
+    }
+
+    public Pelicula getPelicula() {
+        return pelicula;
+    }
+
+    public void setPelicula(Pelicula pelicula) {
+        this.pelicula = pelicula;
+    }
+
+    public List<Venta> getListFuncionVentas() {
+        return listFuncionVentas;
+    }
+
+    public void setListFuncionVentas(List<Venta> listFuncionVenta) {
+        this.listFuncionVentas = listFuncionVenta;
+    }
+
     @Override
     public String toString() {
         return "Funcion{" +
@@ -69,7 +127,7 @@ public class Funcion {
                 ", precioBase=" + precioBase +
                 ", sala=" + sala +
                 ", pelicula=" + pelicula +
-                ", listFuncionVenta=" + listFuncionVenta +
+                ", listFuncionVentas=" + listFuncionVentas +
                 '}';
     }
 }

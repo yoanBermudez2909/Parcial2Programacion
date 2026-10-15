@@ -240,138 +240,70 @@ public class Cine {
         return funcion.calcularPorcentajeOcupacion();
     }
 
-    /**
-     * Metodo que permite obtener el nombre comercial del cine
-     * @return nombre comercial del cine
-     */
     public String getNombreComercial() {
         return nombreComercial;
     }
 
-    /**
-     * Metodo que permite modificar el nombre comercial del cine
-     * @param nombreComercial nuevo nombre comercial del cine
-     */
     public void setNombreComercial(String nombreComercial) {
         this.nombreComercial = nombreComercial;
     }
 
-    /**
-     * Metodo que permite obtener el NIT del cine
-     * @return NIT del cine
-     */
     public String getNit() {
         return nit;
     }
 
-    /**
-     * Metodo que permite modificar el NIT del cine
-     * @param nit nuevo NIT del cine
-     */
     public void setNit(String nit) {
         this.nit = nit;
     }
 
-    /**
-     * Metodo que permite obtener la direccion del cine
-     * @return direccion del cine
-     */
     public String getDireccion() {
         return direccion;
     }
 
-    /**
-     * Metodo que permite modificar la direccion del cine
-     * @param direccion nueva direccion del cine
-     */
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
-    /**
-     * Metodo que permite obtener la lista de salas del cine
-     * @return lista de salas registradas
-     */
     public List<Sala> getListCineSalas() {
         return listCineSalas;
     }
 
-    /**
-     * Metodo que permite modificar la lista de salas del cine
-     * @param listCineSalas nueva lista de salas del cine
-     */
     public void setListCineSalas(List<Sala> listCineSalas) {
         this.listCineSalas = listCineSalas;
     }
 
-    /**
-     * Metodo que permite obtener la lista de peliculas del cine
-     * @return lista de peliculas registradas
-     */
     public List<Pelicula> getListCinePeliculas() {
         return listCinePeliculas;
     }
 
-    /**
-     * Metodo que permite modificar la lista de peliculas del cine
-     * @param listCinePeliculas nueva lista de peliculas del cine
-     */
     public void setListCinePeliculas(List<Pelicula> listCinePeliculas) {
         this.listCinePeliculas = listCinePeliculas;
     }
 
-    /**
-     * Metodo que permite obtener la lista de funciones del cine
-     * @return lista de funciones programadas
-     */
-    public List<Funcion> getListCineFuncion() {
+    public List<Funcion> getListCineFunciones() {
         return listCineFunciones;
     }
 
-    /**
-     * Metodo que permite modificar la lista de funciones del cine
-     * @param listCineFuncion nueva lista de funciones del cine
-     */
-    public void setListCineFuncion(List<Funcion> listCineFuncion) {
-        this.listCineFunciones = listCineFuncion;
+    public void setListCineFunciones(List<Funcion> listCineFunciones) {
+        this.listCineFunciones = listCineFunciones;
     }
 
-    /**
-     * Metodo que permite obtener la lista de personas del cine
-     * @return lista de personas registradas
-     */
-    public List<Persona> getListCinePersona() {
+    public List<Persona> getListCinePersonas() {
         return listCinePersonas;
     }
 
-    /**
-     * Metodo que permite modificar la lista de personas del cine
-     * @param listCinePersona nueva lista de personas del cine
-     */
-    public void setListCinePersona(List<Persona> listCinePersona) {
-        this.listCinePersonas = listCinePersona;
+    public void setListCinePersonas(List<Persona> listCinePersonas) {
+        this.listCinePersonas = listCinePersonas;
     }
 
-    /**
-     * Metodo que permite obtener la lista de ventas del cine
-     * @return lista de ventas registradas
-     */
     public List<Venta> getListCineVentas() {
         return listCineVentas;
     }
 
-    /**
-     * Metodo que permite modificar la lista de ventas del cine
-     * @param listCineVentas nueva lista de ventas del cine
-     */
     public void setListCineVentas(List<Venta> listCineVentas) {
         this.listCineVentas = listCineVentas;
     }
 
-    /**
-     * Metodo que permite obtener la representacion en texto del cine
-     * @return cadena de texto con los datos del cine
-     */
     @Override
     public String toString() {
         return "Cine{" +

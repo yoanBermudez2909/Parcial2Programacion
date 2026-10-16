@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Persona {
+    /**
+     * Método constructor de la clase Cliente
+     * @param documento del cliente
+     * @param nombre del cliente
+     * @param correo del cliente
+     * @param telefono del cliente
+     * @param codigoAfilacion del cliente
+     * @param porcentajeDescuento del cliente
+     */
     private String codigoAfilacion;
     private double porcentajeDescuento;
 

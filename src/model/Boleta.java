@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Boleta {
+    /**
+     * Método constructor de la clase Boleta
+     * @param codigo de la boleta
+     * @param fila de la boleta
+     * @param numeroAsientos de la boleta
+     * @param valor de la boleta
+     */
+
     private String codigo;
     private int fila;
     private int numeroAsientos;

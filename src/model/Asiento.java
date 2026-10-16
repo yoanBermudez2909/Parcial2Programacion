@@ -1,6 +1,12 @@
 package model;
 
 public class Asiento {
+    /**
+     * Método constructor de la clase Asiento
+     * @param fila del asiento
+     * @param columna del asiento
+     */
+
     private int filas;
     private int columnas;
 

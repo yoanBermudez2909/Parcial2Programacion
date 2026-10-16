@@ -6,6 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Funcion {
+    /**
+     * Método constructor de la clase Funcion
+     * @param codigo de la funcion
+     * @param fehca de la funcion
+     * @param horaInicio de la funcion
+     * @param precioBase de la funcion
+     * @param sala de la funcion
+     * @param pelicula de la funcion
+     */
     private String codigo;
     private LocalDate fehca;
     private LocalTime horaInicio;

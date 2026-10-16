@@ -5,6 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Operario extends Persona {
+    /**
+     * Método constructor de la clase Operario
+     * @param documento del operario
+     * @param nombre del operario
+     * @param correo del operario
+     * @param telefono del operario
+     * @param codigoEmpleado del operario
+     * @param fechaContratacion del operario
+     * @param salarioBasico del operario
+     */
     private String codigoEmpleado;
     private String fechaContratacion;
     private double salarioBasico;

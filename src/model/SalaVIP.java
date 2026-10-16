@@ -13,6 +13,6 @@ public class SalaVIP extends Sala{
 
     @Override
     public double calcularPrecioBoleta(double precioBase) {
-        return 0;
+        return precioBase * 1.30;
     }
 }

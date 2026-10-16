@@ -5,25 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class  Sala {
-    /**
-     * Método constructor de la clase Sala
-     * @param codigo de la sala
-     * @param nombre de la sala
-     * @param capacidadMaxima de la sala
-     */
     private  String codigo;
     private  String nombre;
     private  int capacidadMaxima;
     private List<Funcion> listSalaFunciones;
     private List<Asiento> listSalaAsientos;
-    // Crea la sala con su capacidad; la lista de asientos arranca vacia
-    // y se llena despues con generarAsientos()
+
     public Sala(String codigo, String nombre, int capacidadMaxima) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.capacidadMaxima = capacidadMaxima;
 
         this.listSalaAsientos = new ArrayList<>();
+        this.listSalaFunciones = new ArrayList<>();
     }
 
     public abstract double calcularPrecioBoleta(double precioBase);
@@ -54,7 +48,6 @@ public abstract class  Sala {
         }
         return true;
     }
-    // Getters y setters: acceso y modificacion de cada atributo
     public String getCodigo() {
         return codigo;
     }
@@ -94,19 +87,17 @@ public abstract class  Sala {
     public void setListSalaAsientos(List<Asiento> listSalaAsientos) {
         this.listSalaAsientos = listSalaAsientos;
     }
-    public List<Asiento> getListSalaAsientos() {
-        return listSalaAsientos;
-    }
 
-    public void setListSalaAsientos(List<Asiento> listSalaAsientos) {
-        this.listSalaAsientos = listSalaAsientos;
-    }
     @Override
     public String toString() {
         return "Sala{" +
                 "codigo='" + codigo + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", capacidadMaxima=" + capacidadMaxima +
+                ", listSalaFunciones=" + listSalaFunciones +
+                ", listSalaAsientos=" + listSalaAsientos +
                 '}';
     }
 }
+
+

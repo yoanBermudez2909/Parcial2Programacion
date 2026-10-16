@@ -110,6 +110,19 @@ public class Cine {
         }
     }
 
+    public Sala buscarSala(String codigo) {
+        for (Sala sala : listCineSalas) {
+            if (sala.getCodigo().equals(codigo)) return sala;
+        }
+        return null;
+    }
+
+    public void agregarSala(Sala sala) {
+        if (sala != null && buscarSala(sala.getCodigo()) == null) {
+            listCineSalas.add(sala);
+        }
+    }
+
     /**
      * Metodo que permite programar una funcion en una sala del cine
      * @param codigo codigo de identificacion de la funcion
@@ -120,12 +133,16 @@ public class Cine {
      * @param sala sala en la que se proyectara la pelicula
      */
     public void programarFuncion(String codigo, LocalDate fehca, LocalTime horaInicio, double precioBase, Pelicula pelicula, Sala sala) {
-        if (!detectarConflicto(sala, fehca, horaInicio, pelicula)) {
-            Funcion funcion = new Funcion(codigo, fehca, horaInicio, precioBase, sala, pelicula);
+        if (codigo == null || fehca == null || horaInicio == null || pelicula == null || sala == null) return;
+        if (buscarFuncion(codigo) != null || buscarSala(sala.getCodigo()) == null || buscarPelicula(pelicula.getCodigo()) == null) return;
+
+        if (!detectarConflicto(sala,fehca,horaInicio,pelicula)) {
+            Funcion funcion = new Funcion(codigo,fehca,horaInicio,precioBase,sala,pelicula);
             listCineFunciones.add(funcion);
+            sala.getListSalaFunciones().add(funcion);
+            pelicula.getListPeliculaFunciones().add(funcion);
         }
     }
-
     /**
      * Metodo que permite detectar conflictos de horario en una sala
      * @param sala sala en la que se desea programar la funcion
@@ -176,45 +193,32 @@ public class Cine {
      * @return true si la venta se realiza correctamente, false si existen datos invalidos o asientos ocupados
      */
     public boolean realizarVenta(String codigo, String fecha, Cliente cliente, Operario operario, Funcion funcion, int[][] asientos) {
-        if (cliente == null || operario == null || funcion == null || asientos.length == 0) {
-            return false;
-        }
+        if (cliente == null || operario == null || funcion == null || asientos == null || asientos.length == 0) return false;
+        if (buscarVenta(codigo) != null) return false;
 
-        if (buscarVenta(codigo) != null) {
-            return false;
-        }
-
-        // Verificar ocupacion antes de registrar la venta
         for (int i = 0; i < asientos.length; i++) {
-            if (!funcion.asientoDisponible(asientos[i][0], asientos[i][1])) {
-                return false;
-            }
+            if (asientos[i] == null || asientos[i].length < 2) return false;
+            if (!funcion.asientoDisponible(asientos[i][0],asientos[i][1])) return false;
 
-            // Verificar que no existan asientos repetidos en la misma venta
             for (int j = i + 1; j < asientos.length; j++) {
-                if (asientos[i][0] == asientos[j][0] && asientos[i][1] == asientos[j][1]) {
-                    return false;
-                }
+                if (asientos[j] != null && asientos[j].length >= 2 && asientos[i][0] == asientos[j][0] && asientos[i][1] == asientos[j][1]) return false;
             }
         }
 
-        Venta venta = new Venta(codigo, fecha, operario, cliente, funcion);
+        Venta venta = new Venta(codigo,fecha,operario,cliente,funcion);
 
-        for (int[] a : asientos) {
-            venta.agregarBoleta(a[0], a[1]);
+        for (int[] asiento : asientos) {
+            venta.agregarBoleta(asiento[0],asiento[1]);
         }
 
         listCineVentas.add(venta);
         funcion.getListFuncionVentas().add(venta);
+        cliente.getListClienteVentas().add(venta);
+        operario.getListOperarioVenta().add(venta);
 
         return true;
     }
 
-    /**
-     * Metodo que permite calcular el total de una venta
-     * @param codigoVenta codigo de identificacion de la venta
-     * @return valor total de la venta o -1 si la venta no existe
-     */
     public double calcularTotalVenta(String codigoVenta) {
         Venta venta = buscarVenta(codigoVenta);
 
@@ -240,138 +244,79 @@ public class Cine {
         return funcion.calcularPorcentajeOcupacion();
     }
 
-    /**
-     * Metodo que permite obtener el nombre comercial del cine
-     * @return nombre comercial del cine
-     */
+    public Funcion buscarFuncion(String codigoFuncion){
+        for (Funcion funcion : listCineFunciones){
+            if(funcion.getCodigo().equals(codigoFuncion)){
+                return funcion;
+            }
+        }
+        return null;
+    }
+
     public String getNombreComercial() {
         return nombreComercial;
     }
 
-    /**
-     * Metodo que permite modificar el nombre comercial del cine
-     * @param nombreComercial nuevo nombre comercial del cine
-     */
     public void setNombreComercial(String nombreComercial) {
         this.nombreComercial = nombreComercial;
     }
 
-    /**
-     * Metodo que permite obtener el NIT del cine
-     * @return NIT del cine
-     */
     public String getNit() {
         return nit;
     }
 
-    /**
-     * Metodo que permite modificar el NIT del cine
-     * @param nit nuevo NIT del cine
-     */
     public void setNit(String nit) {
         this.nit = nit;
     }
 
-    /**
-     * Metodo que permite obtener la direccion del cine
-     * @return direccion del cine
-     */
     public String getDireccion() {
         return direccion;
     }
 
-    /**
-     * Metodo que permite modificar la direccion del cine
-     * @param direccion nueva direccion del cine
-     */
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
-    /**
-     * Metodo que permite obtener la lista de salas del cine
-     * @return lista de salas registradas
-     */
     public List<Sala> getListCineSalas() {
         return listCineSalas;
     }
 
-    /**
-     * Metodo que permite modificar la lista de salas del cine
-     * @param listCineSalas nueva lista de salas del cine
-     */
     public void setListCineSalas(List<Sala> listCineSalas) {
         this.listCineSalas = listCineSalas;
     }
 
-    /**
-     * Metodo que permite obtener la lista de peliculas del cine
-     * @return lista de peliculas registradas
-     */
     public List<Pelicula> getListCinePeliculas() {
         return listCinePeliculas;
     }
 
-    /**
-     * Metodo que permite modificar la lista de peliculas del cine
-     * @param listCinePeliculas nueva lista de peliculas del cine
-     */
     public void setListCinePeliculas(List<Pelicula> listCinePeliculas) {
         this.listCinePeliculas = listCinePeliculas;
     }
 
-    /**
-     * Metodo que permite obtener la lista de funciones del cine
-     * @return lista de funciones programadas
-     */
-    public List<Funcion> getListCineFuncion() {
+    public List<Funcion> getListCineFunciones() {
         return listCineFunciones;
     }
 
-    /**
-     * Metodo que permite modificar la lista de funciones del cine
-     * @param listCineFuncion nueva lista de funciones del cine
-     */
-    public void setListCineFuncion(List<Funcion> listCineFuncion) {
-        this.listCineFunciones = listCineFuncion;
+    public void setListCineFunciones(List<Funcion> listCineFunciones) {
+        this.listCineFunciones = listCineFunciones;
     }
 
-    /**
-     * Metodo que permite obtener la lista de personas del cine
-     * @return lista de personas registradas
-     */
-    public List<Persona> getListCinePersona() {
+    public List<Persona> getListCinePersonas() {
         return listCinePersonas;
     }
 
-    /**
-     * Metodo que permite modificar la lista de personas del cine
-     * @param listCinePersona nueva lista de personas del cine
-     */
-    public void setListCinePersona(List<Persona> listCinePersona) {
-        this.listCinePersonas = listCinePersona;
+    public void setListCinePersonas(List<Persona> listCinePersonas) {
+        this.listCinePersonas = listCinePersonas;
     }
 
-    /**
-     * Metodo que permite obtener la lista de ventas del cine
-     * @return lista de ventas registradas
-     */
     public List<Venta> getListCineVentas() {
         return listCineVentas;
     }
 
-    /**
-     * Metodo que permite modificar la lista de ventas del cine
-     * @param listCineVentas nueva lista de ventas del cine
-     */
     public void setListCineVentas(List<Venta> listCineVentas) {
         this.listCineVentas = listCineVentas;
     }
 
-    /**
-     * Metodo que permite obtener la representacion en texto del cine
-     * @return cadena de texto con los datos del cine
-     */
     @Override
     public String toString() {
         return "Cine{" +

@@ -4,14 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Venta {
-    /**
-     * Método constructor de la clase Venta
-     * @param codigo de la venta
-     * @param fecha de la venta
-     * @param theFuncion de la venta
-     * @param theCliente de la venta
-     * @param theOperario de la venta
-     */
     private String codigo;
     private String fecha;
     private Operario operario;
@@ -25,35 +17,29 @@ public class Venta {
         this.operario = operario;
         this.cliente = cliente;
         this.funcion = funcion;
-        this.theCliente = theCliente;
-        this.theOperario = theOperario;
+        this.cliente = cliente;
+        this.operario = operario;
         this.listVentaBoletas = new ArrayList<>();
     }
-    // Intenta agregar una boleta para el asiento (fila, numero).
-    // Devuelve false si el asiento no existe en la sala o si ya fue
-    // vendido para esta funcion
+
     public boolean agregarBoleta(int fila, int numero) {
-        Sala sala = theFuncion.getSala();
+        Sala sala = funcion.getSala();
 
         if (sala.buscarAsiento(fila, numero) == null) {
             return false;
         }
-        if (!theFuncion.asientoDisponible(fila, numero)) {
+        if (!funcion.asientoDisponible(fila, numero)) {
             return false;
         }
 
-        double conRecargo = sala.calcularPrecioBoleta(theFuncion.getPrecioBase());
-        double valorFinal = theCliente.aplicarDescuento(conRecargo);
+        double conRecargo = sala.calcularPrecioBoleta(funcion.getPrecioBase());
+        double valorFinal = cliente.aplicarDescuento(conRecargo);
 
         String codigoBoleta = codigo + "-" + (listVentaBoletas.size() + 1);
-        Boleta boleta = new Boleta(codigoBoleta, fila, numero, valorFinal);
-
-        boleta.setTheVenta(this);
-        listVentaBoletas.add(boleta);
-        theFuncion.registrarBoleta(boleta);
+        listVentaBoletas.add(new Boleta(codigoBoleta, fila, numero, valorFinal));
         return true;
     }
-    // Suma el valor de todas las boletas de esta venta: total a pagar
+
     public double calcularTotal() {
         double total = 0;
         for (Boleta b : listVentaBoletas) {
@@ -61,7 +47,6 @@ public class Venta {
         }
         return total;
     }
-    // Getters y setters de cada atributo
     public String getCodigo() {
         return codigo;
     }
@@ -102,19 +87,19 @@ public class Venta {
         this.funcion = funcion;
     }
     public Cliente getTheCliente() {
-        return theCliente;
+        return cliente;
     }
 
     public void setTheCliente(Cliente theCliente) {
-        this.theCliente = theCliente;
+        this.cliente = theCliente;
     }
 
     public Operario getTheOperario() {
-        return theOperario;
+        return operario;
     }
 
     public void setTheOperario(Operario theOperario) {
-        this.theOperario = theOperario;
+        this.operario = theOperario;
     }
 
     public List<Boleta> getListVentaBoletas() {
